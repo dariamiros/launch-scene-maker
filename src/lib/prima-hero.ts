@@ -85,7 +85,7 @@ export function initPrimaHero(app: HTMLElement): () => void {
   let destroyed = false;
 
   const setMenu = (open: boolean) => {
-    app.dataset.menu = open ? "open" : "closed";
+    app.dataset["menu"] = open ? "open" : "closed";
     btn.setAttribute("aria-expanded", String(open));
   };
 
@@ -98,8 +98,8 @@ export function initPrimaHero(app: HTMLElement): () => void {
     raf = 0;
     const { vw, vh } = viewport();
     const L = computeLayout(vw, vh);
-    if (app.dataset.mode !== L.mode) {
-      app.dataset.mode = L.mode;
+    if (app.dataset["mode"] !== L.mode) {
+      app.dataset["mode"] = L.mode;
       if (L.mode === "exact") setMenu(false);
     }
     const st = app.style;
@@ -122,7 +122,7 @@ export function initPrimaHero(app: HTMLElement): () => void {
         if (h > avail) hero.style.transform = `scale(${Math.max(0.55, avail / h)})`;
       }
     }
-    app.dataset.ready = "true";
+    app.dataset["ready"] = "true";
   }
 
   const schedule = () => {
@@ -136,13 +136,13 @@ export function initPrimaHero(app: HTMLElement): () => void {
   document.fonts?.ready.then(() => !destroyed && schedule());
 
   // Menu
-  const onBtn = () => setMenu(app.dataset.menu !== "open");
+  const onBtn = () => setMenu(app.dataset["menu"] !== "open");
   const onScrim = () => setMenu(false);
   const onKey = (e: KeyboardEvent) => {
-    if (e.key === "Escape" && app.dataset.menu === "open") setMenu(false);
+    if (e.key === "Escape" && app.dataset["menu"] === "open") setMenu(false);
   };
   const onPanel = (e: Event) => {
-    if (app.dataset.mode !== "exact" && (e.target as Element).closest("a")) setMenu(false);
+    if (app.dataset["mode"] !== "exact" && (e.target as Element).closest("a")) setMenu(false);
   };
   btn.addEventListener("click", onBtn);
   scrim.addEventListener("click", onScrim);
@@ -165,14 +165,14 @@ export function initPrimaHero(app: HTMLElement): () => void {
   const start = () => {
     if (destroyed) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const mode = app.dataset.mode;
+    const mode = app.dataset["mode"];
     const soft = mode === "exact" ? [logo, ...links, signup] : [logo, btn];
     const bases = soft.map((el) => {
       const t = getComputedStyle(el).transform;
       return t && t !== "none" ? t : "";
     });
 
-    app.dataset.intro = "done";
+    app.dataset["intro"] = "done";
 
     if (reduce) {
       [header, hero].forEach((el) =>
