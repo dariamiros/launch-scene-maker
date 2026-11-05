@@ -1,0 +1,460 @@
+/* Prima dell'Alba — full-viewport hero. Measured on a 1280×960 canvas; UI scales by --u. */
+
+:root {
+  --gold: #e5b869;
+  --gold-hi: #f3ce85;
+  --underline: #e5b869;
+  --ink: #ffffff;
+  --ink-soft: rgba(255, 255, 255, 0.9);
+  --rule: rgba(229, 184, 105, 0.3);
+  --night: #070b19;
+  --h1-size: 92;
+  --h1-ls: 2;
+  --h1-lh: 96;
+  --h1-off: 2.1;
+  --p-size: 15.5;
+  --p-lh: 24;
+  --p-w: 350;
+  --p-gap: 30;
+  --btn-gap: 32;
+  --btn-w: 190;
+  --btn-h: 51;
+  --btn-size: 15;
+  --nav-size: 13;
+  --nav-gap: 80;
+  --nav-shift: 3;
+  --logo-size: 22;
+  --logo-shift: 1;
+  --su-size: 13;
+  --su-w: 135;
+  --su-h: 41;
+  --su-bw: 1.5;
+  --head-top: 28;
+  --head-left: 65.6;
+  --head-right: 69;
+  --ul-w: 37;
+  --ul-h: 2;
+  --ul-top: 31.5;
+  --u: 1;
+  --hero-top: 272px;
+  --font-display: "Cinzel", "Gelasio", Georgia, serif;
+  --font-body: "Montserrat", "Outfit", sans-serif;
+  --ease-drawer: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--night);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--night);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+:where(#app) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------- Artwork ---------- */
+#stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1280px;
+  height: 960px;
+  overflow: hidden;
+  transform-origin: 0 0;
+  transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(var(--s, 1));
+  transition: opacity 0.5s linear;
+}
+#app[data-ready="false"] #stage {
+  opacity: 0;
+}
+#bg {
+  display: block;
+  width: 1280px;
+  height: 960px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  pointer-events: none;
+}
+
+#topscrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  height: calc(185px * var(--u));
+  background: linear-gradient(
+    180deg,
+    rgba(7, 11, 25, 0.9) 0%,
+    rgba(7, 11, 25, 0.5) 45%,
+    rgba(7, 11, 25, 0.15) 75%,
+    rgba(7, 11, 25, 0) 100%
+  );
+  opacity: var(--scrim, 0);
+  pointer-events: none;
+}
+
+#scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(5, 8, 18, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.34s var(--ease-drawer);
+}
+#app[data-mode="exact"] #scrim {
+  display: none;
+}
+#app[data-menu="open"] #scrim {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---------- Header (exact) ---------- */
+#masthead {
+  position: absolute;
+  z-index: 30;
+  top: calc(var(--head-top) * 1px * var(--u));
+  left: calc(var(--head-left) * 1px * var(--u));
+  right: calc(var(--head-right) * 1px * var(--u));
+  min-height: calc(34px * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: calc(var(--logo-size) * 1px * var(--u));
+  line-height: 1.2;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  color: var(--ink);
+  transform: translateY(calc(var(--logo-shift) * 1px * var(--u)));
+}
+
+.cluster {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--nav-gap) * 1px * var(--u));
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--nav-gap) * 1px * var(--u));
+}
+.links a {
+  position: relative;
+  display: inline-block;
+  font-size: calc(var(--nav-size) * 1px * var(--u));
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  transform: translateY(calc(var(--nav-shift) * 1px * var(--u)));
+  transition: color 0.2s ease;
+}
+.links a:hover,
+.links a.is-active {
+  color: var(--ink);
+}
+.links a.is-active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(var(--ul-top) * 1px * var(--u));
+  width: calc(var(--ul-w) * 1px * var(--u));
+  height: calc(var(--ul-h) * 1px * var(--u));
+  background: var(--underline);
+  transform: translateX(-50%);
+}
+
+.signup {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--su-w) * 1px * var(--u));
+  height: calc(var(--su-h) * 1px * var(--u));
+  border: calc(var(--su-bw) * 1px * var(--u)) solid var(--gold);
+  color: var(--gold);
+  font-size: calc(var(--su-size) * 1px * var(--u));
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+@media (hover: hover) {
+  .signup:hover {
+    background: var(--gold);
+    color: var(--night);
+  }
+}
+
+/* ---------- Burger ---------- */
+#menu-btn {
+  display: none;
+  position: absolute;
+  z-index: 40;
+  top: calc(var(--head-top) * 1px * var(--u));
+  right: calc(var(--head-right) * 1px * var(--u));
+  width: calc(34px * var(--u));
+  height: calc(34px * var(--u));
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: calc(5px * var(--u));
+}
+#menu-btn span {
+  display: block;
+  height: calc(1.6px * var(--u));
+  background: var(--ink);
+  border-radius: 2px;
+  transition:
+    transform 0.34s var(--ease-drawer),
+    width 0.34s var(--ease-drawer);
+}
+#menu-btn span:first-child {
+  width: calc(28px * var(--u));
+}
+#menu-btn span:last-child {
+  width: calc(20px * var(--u));
+}
+#app[data-menu="open"] #menu-btn span:first-child {
+  transform: translateY(calc(3.3px * var(--u))) rotate(45deg);
+}
+#app[data-menu="open"] #menu-btn span:last-child {
+  width: calc(28px * var(--u));
+  transform: translateY(calc(-3.3px * var(--u))) rotate(-45deg);
+}
+
+/* ---------- Hero (exact) ---------- */
+#hero {
+  position: absolute;
+  z-index: 10;
+  left: calc(72px * var(--u));
+  top: var(--hero-top);
+  width: calc(640px * var(--u));
+  transform-origin: 0 0;
+}
+#hero h1 {
+  margin: calc(var(--h1-off) * -1px * var(--u)) 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: calc(var(--h1-size) * 1px * var(--u));
+  line-height: calc(var(--h1-lh) * 1px * var(--u));
+  letter-spacing: calc(var(--h1-ls) * 1px * var(--u));
+  text-transform: uppercase;
+  color: var(--ink);
+}
+#hero .ln {
+  display: block;
+  white-space: nowrap;
+  clip-path: inset(-40% -8% -8% -8%);
+}
+#hero .ln > span {
+  display: inline-block;
+}
+#hero p {
+  margin: calc(var(--p-gap) * 1px * var(--u)) 0 0;
+  width: calc(var(--p-w) * 1px * var(--u));
+  max-width: 100%;
+  font-size: calc(var(--p-size) * 1px * var(--u));
+  line-height: calc(var(--p-lh) * 1px * var(--u));
+  color: var(--ink-soft);
+}
+
+.explore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--btn-w) * 1px * var(--u));
+  height: calc(var(--btn-h) * 1px * var(--u));
+  margin-top: calc(var(--btn-gap) * 1px * var(--u));
+  background: var(--gold);
+  color: var(--night);
+  font-size: calc(var(--btn-size) * 1px * var(--u));
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+.explore:hover {
+  background: var(--gold-hi);
+}
+.explore:active {
+  transform: translateY(1px);
+}
+
+#app a:focus-visible,
+#app button:focus-visible {
+  outline: calc(2px * var(--u)) solid var(--ink);
+  outline-offset: calc(3px * var(--u));
+}
+
+/* ---------- Collapsed nav (tablet + compact) ---------- */
+#app:not([data-mode="exact"]) #menu-btn {
+  display: flex;
+}
+#app:not([data-mode="exact"]) .cluster {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 35;
+  width: min(64vw, 360px);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(36px, 6vh, 56px);
+  padding: calc(96px + env(safe-area-inset-top)) clamp(28px, 5vw, 44px)
+    calc(40px + env(safe-area-inset-bottom));
+  background: rgba(7, 11, 25, 0.94);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  border-left: 1px solid rgba(229, 184, 105, 0.2);
+  transform: translateX(102%);
+  visibility: hidden;
+  transition:
+    transform 0.34s var(--ease-drawer),
+    visibility 0s linear 0.34s;
+}
+#app[data-menu="open"]:not([data-mode="exact"]) .cluster {
+  transform: none;
+  visibility: visible;
+  transition:
+    transform 0.34s var(--ease-drawer),
+    visibility 0s;
+}
+#app:not([data-mode="exact"]) .links {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(22px, 3.6vh, 32px);
+}
+#app:not([data-mode="exact"]) .links a {
+  font-size: clamp(18px, 2.2vw, 22px);
+  transform: none;
+}
+#app:not([data-mode="exact"]) .links a.is-active::after {
+  left: 0;
+  top: auto;
+  bottom: -8px;
+  width: 36px;
+  height: 2px;
+  transform: none;
+}
+#app:not([data-mode="exact"]) .signup {
+  width: clamp(130px, 18vw, 160px);
+  height: clamp(44px, 5.2vh, 52px);
+  border-width: 1.5px;
+  font-size: 14px;
+}
+
+/* ---------- Compact / mobile ---------- */
+#app[data-mode="compact"] {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  --mpad: clamp(22px, 5.6vw, 34px);
+  --mgap: clamp(18px, min(6vw, 3.2vh), 34px);
+  --mtop: calc(clamp(14px, min(4.4vw, 2.6vh), 28px) + env(safe-area-inset-top));
+}
+#app[data-mode="compact"] #stage {
+  width: 100%;
+  height: 100%;
+  transform: none;
+}
+#app[data-mode="compact"] #bg {
+  width: 100%;
+  height: 100%;
+}
+#app[data-mode="compact"] #topscrim {
+  height: clamp(240px, 52vh, 520px);
+  opacity: 0.6;
+}
+#app[data-mode="compact"] #masthead {
+  position: relative;
+  grid-row: 1;
+  top: auto;
+  left: auto;
+  right: auto;
+  min-height: 34px;
+  margin: var(--mtop) var(--mpad) 0;
+}
+#app[data-mode="compact"] .logo {
+  font-size: clamp(20px, min(4vw, 4.8vh), 28px);
+  transform: none;
+}
+#app[data-mode="compact"] #menu-btn {
+  top: var(--mtop);
+  right: var(--mpad);
+}
+#app[data-mode="compact"] #hero {
+  position: relative;
+  grid-row: 2;
+  align-self: start;
+  left: auto;
+  top: auto;
+  width: auto;
+  margin: clamp(20px, min(7.4vh, 8vw), 72px) var(--mpad)
+    calc(clamp(18px, 3vh, 30px) + env(safe-area-inset-bottom));
+}
+#app[data-mode="compact"] #hero h1 {
+  margin: 0 0 0 -0.02em;
+  font-size: clamp(36px, min(12vw, 13vh), 86px);
+  line-height: 0.98;
+  letter-spacing: 0.05em;
+}
+#app[data-mode="compact"] #hero p {
+  width: min(100%, 38ch);
+  margin-top: var(--mgap);
+  font-size: clamp(14px, min(3.9vw, 2.3vh), 18px);
+  line-height: 1.47;
+}
+#app[data-mode="compact"] .explore {
+  width: clamp(160px, 46vw, 200px);
+  height: clamp(46px, min(12vw, 11vh), 58px);
+  margin-top: var(--mgap);
+  font-size: clamp(14px, min(3.8vw, 3.2vh), 17px);
+}
+
+/* ---------- Entrance pre-state (cleared by JS when the intro starts) ---------- */
+#app[data-intro="pending"] .ln > span {
+  transform: translateY(112%);
+}
+#app[data-intro="pending"] :is(.logo, .links a, .signup, #menu-btn, #hero p) {
+  opacity: 0;
+}
+#app[data-intro="pending"] .explore {
+  clip-path: inset(0 100% 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
