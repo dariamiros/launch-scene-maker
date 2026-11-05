@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- The Prima dell’Alba hero's layout/menu/intro logic lives in one plain-DOM module (`src/lib/prima-hero.ts`) with its CSS in `src/styles/prima-hero.css`; the `/` route and the standalone HTML export both use them, so change behavior there, not in JSX. Why: keeps the app and the single-file export identical.
