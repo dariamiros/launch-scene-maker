@@ -1,13 +1,13 @@
 /* Prima dell'Alba — full-viewport hero. Measured on a 1280×960 canvas; UI scales by --u. */
 
 :root {
-  --gold: #e5b869;
-  --gold-hi: #f3ce85;
-  --underline: #e5b869;
+  --gold: #f2c06b;
+  --gold-hi: #f8d495;
+  --underline: #f2c06b;
   --ink: #ffffff;
   --ink-soft: rgba(255, 255, 255, 0.9);
-  --rule: rgba(229, 184, 105, 0.3);
-  --night: #070b19;
+  --rule: rgba(242, 192, 107, 0.3);
+  --night: #0a0e2c;
   --h1-size: 92;
   --h1-ls: 2;
   --h1-lh: 96;
@@ -21,7 +21,7 @@
   --btn-h: 51;
   --btn-size: 15;
   --nav-size: 13;
-  --nav-gap: 80;
+  --nav-gap: 56;
   --nav-shift: 3;
   --logo-size: 22;
   --logo-shift: 1;
@@ -29,7 +29,7 @@
   --su-w: 135;
   --su-h: 41;
   --su-bw: 1.5;
-  --head-top: 28;
+  --head-top: 22;
   --head-left: 65.6;
   --head-right: 69;
   --ul-w: 37;
@@ -42,8 +42,8 @@
   --ease-drawer: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-html,
-body {
+html:has(#app),
+html:has(#app) body {
   height: 100%;
   overflow: hidden;
   background: var(--night);
@@ -82,6 +82,15 @@ body {
 #app[data-ready="false"] #stage {
   opacity: 0;
 }
+#stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(10, 14, 44, 0.72) 0%, rgba(10, 14, 44, 0.3) 42%, rgba(10, 14, 44, 0) 68%),
+    linear-gradient(0deg, rgba(10, 14, 44, 0.55) 0%, rgba(10, 14, 44, 0) 38%);
+}
 #bg {
   display: block;
   width: 1280px;
@@ -100,10 +109,10 @@ body {
   height: calc(185px * var(--u));
   background: linear-gradient(
     180deg,
-    rgba(7, 11, 25, 0.9) 0%,
-    rgba(7, 11, 25, 0.5) 45%,
-    rgba(7, 11, 25, 0.15) 75%,
-    rgba(7, 11, 25, 0) 100%
+    rgba(10, 14, 44, 0.9) 0%,
+    rgba(10, 14, 44, 0.5) 45%,
+    rgba(10, 14, 44, 0.15) 75%,
+    rgba(10, 14, 44, 0) 100%
   );
   opacity: var(--scrim, 0);
   pointer-events: none;
@@ -113,7 +122,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 20;
-  background: rgba(5, 8, 18, 0.6);
+  background: rgba(8, 11, 36, 0.6);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.34s var(--ease-drawer);
@@ -133,13 +142,16 @@ body {
   top: calc(var(--head-top) * 1px * var(--u));
   left: calc(var(--head-left) * 1px * var(--u));
   right: calc(var(--head-right) * 1px * var(--u));
-  min-height: calc(34px * var(--u));
+  min-height: calc(52px * var(--u));
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(14px * var(--u));
   font-family: var(--font-display);
   font-weight: 700;
   font-size: calc(var(--logo-size) * 1px * var(--u));
@@ -148,6 +160,12 @@ body {
   white-space: nowrap;
   color: var(--ink);
   transform: translateY(calc(var(--logo-shift) * 1px * var(--u)));
+}
+.logo img {
+  display: block;
+  width: calc(52px * var(--u));
+  height: calc(52px * var(--u));
+  flex: none;
 }
 
 .cluster {
@@ -215,7 +233,7 @@ body {
   display: none;
   position: absolute;
   z-index: 40;
-  top: calc(var(--head-top) * 1px * var(--u));
+  top: calc((var(--head-top) + 9) * 1px * var(--u));
   right: calc(var(--head-right) * 1px * var(--u));
   width: calc(34px * var(--u));
   height: calc(34px * var(--u));
@@ -332,10 +350,10 @@ body {
   gap: clamp(36px, 6vh, 56px);
   padding: calc(96px + env(safe-area-inset-top)) clamp(28px, 5vw, 44px)
     calc(40px + env(safe-area-inset-bottom));
-  background: rgba(7, 11, 25, 0.94);
+  background: rgba(10, 14, 44, 0.95);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   backdrop-filter: blur(16px) saturate(140%);
-  border-left: 1px solid rgba(229, 184, 105, 0.2);
+  border-left: 1px solid rgba(242, 192, 107, 0.25);
   transform: translateX(102%);
   visibility: hidden;
   transition:
@@ -400,15 +418,20 @@ body {
   top: auto;
   left: auto;
   right: auto;
-  min-height: 34px;
+  min-height: 40px;
   margin: var(--mtop) var(--mpad) 0;
 }
+#app[data-mode="compact"] .logo img {
+  width: 40px;
+  height: 40px;
+}
 #app[data-mode="compact"] .logo {
-  font-size: clamp(20px, min(4vw, 4.8vh), 28px);
+  gap: 10px;
+  font-size: clamp(15px, min(4vw, 4.8vh), 24px);
   transform: none;
 }
 #app[data-mode="compact"] #menu-btn {
-  top: var(--mtop);
+  top: calc(var(--mtop) + 3px);
   right: var(--mpad);
 }
 #app[data-mode="compact"] #hero {
