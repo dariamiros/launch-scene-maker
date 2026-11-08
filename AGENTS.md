@@ -32,3 +32,4 @@ use the editor.
 ## Project rules
 
 - The Prima dell’Alba hero's layout/menu/intro logic lives in one plain-DOM module (`src/lib/prima-hero.ts`) with its CSS in `src/styles/prima-hero.css`; the `/` route and the standalone HTML export both use them, so change behavior there, not in JSX. Why: keeps the app and the single-file export identical.
+- Inner pages share `src/components/site-chrome.tsx` (header/footer/shell); the 3D box viewer is plain three.js in `src/lib/gift-box-3d.ts`, dynamically imported in a `useEffect`. Why: three.js must never load during SSR, and the port stays close to the user's original file.

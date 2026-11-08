@@ -4,7 +4,7 @@
 export const DW = 1280;
 export const DH = 960;
 export const HERO_H = 411;
-export const HEAD_H = 66;
+export const HEAD_H = 74;
 export const UI_MIN_H = 560;
 export const U_DESK = 0.874;
 export const PHONE_W = 600;
