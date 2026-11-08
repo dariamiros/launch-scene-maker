@@ -1,14 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 
 import { initPrimaHero } from "@/lib/prima-hero";
+import heroVideo from "@/assets/village_twilight_hero.mp4.asset.json";
+import emblem from "@/assets/deer_emblem_gold.png.asset.json";
 
-const VIDEO_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261005_115704_e1b28e05-aef1-477c-924b-0c1d4612f86f.mp4";
-
-const TITLE = "Prima dell’Alba — Una Notte. Tutto il Mondo.";
+const TITLE = "Prima dell’Alba — Il gioco di squadra che corre contro il sole";
 const DESCRIPTION =
-  "Una notte. Tutto il mondo. Vivi la magia della notte più attesa dell'anno, immerse nella quiete del villaggio innevato.";
+  "È la notte di Natale e il sole sta per sorgere: consegna tutti i regali prima dell’alba, prima che i Furfanti li rubino.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -54,30 +53,31 @@ function Index() {
           preload="auto"
           width={1280}
           height={960}
-          aria-label="Cinematic slow forward camera movement over a snowy magical village under high mountain peaks at dawn, glowing cozy wooden cabins with smoke coming from chimneys"
+          aria-label="Volo lento sopra un villaggio alpino innevato al crepuscolo, con baite illuminate e fumo dai camini"
         >
-          <source src={VIDEO_URL} type="video/mp4" />
+          <source src={heroVideo.url} type="video/mp4" />
         </video>
       </div>
       <div id="topscrim" />
       <div id="scrim" />
 
       <header id="masthead">
-        <a className="logo" href="#">
-          PRIMA DELL’ALBA
-        </a>
+        <Link className="logo" to="/">
+          <img src={emblem.url} alt="" width={256} height={256} />
+          <span>PRIMA DELL’ALBA</span>
+        </Link>
         <div className="cluster" id="nav-panel">
-          <nav className="links" id="links" aria-label="Main">
-            <a className="is-active" href="#" aria-current="page">
+          <nav className="links" id="links" aria-label="Principale">
+            <Link className="is-active" to="/" aria-current="page">
               Home
-            </a>
-            <a href="#">Storia</a>
-            <a href="#">Esperienza</a>
-            <a href="#">Collezione</a>
+            </Link>
+            <Link to="/il-gioco">Il Gioco</Link>
+            <Link to="/personaggi">Personaggi</Link>
+            <Link to="/scatola">La Scatola</Link>
           </nav>
-          <a className="signup" href="#">
-            Prenota Ora
-          </a>
+          <Link className="signup" to="/scatola">
+            Vedi in 3D
+          </Link>
         </div>
       </header>
       <button
@@ -100,10 +100,13 @@ function Index() {
             <span>Dell’Alba</span>
           </span>
         </h1>
-        <p>{DESCRIPTION}</p>
-        <a className="explore" href="#">
-          Scopri la Magia
-        </a>
+        <p>
+          Il gioco di squadra che corre contro il sole. Consegna tutti i regali prima che sorga
+          l’alba!
+        </p>
+        <Link className="explore" to="/il-gioco">
+          Scopri il Gioco
+        </Link>
       </section>
     </div>
   );
