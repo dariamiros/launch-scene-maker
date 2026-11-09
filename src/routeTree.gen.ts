@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as IlGiocoRouteImport } from './routes/il-gioco'
 import { Route as PersonaggiRouteImport } from './routes/personaggi'
+import { Route as RegolamentoRouteImport } from './routes/regolamento'
 import { Route as ScatolaRouteImport } from './routes/scatola'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const PersonaggiRoute = PersonaggiRouteImport.update({
   path: '/personaggi',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegolamentoRoute = RegolamentoRouteImport.update({
+  id: '/regolamento',
+  path: '/regolamento',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScatolaRoute = ScatolaRouteImport.update({
   id: '/scatola',
   path: '/scatola',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/il-gioco': typeof IlGiocoRoute
   '/personaggi': typeof PersonaggiRoute
+  '/regolamento': typeof RegolamentoRoute
   '/scatola': typeof ScatolaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/il-gioco': typeof IlGiocoRoute
   '/personaggi': typeof PersonaggiRoute
+  '/regolamento': typeof RegolamentoRoute
   '/scatola': typeof ScatolaRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,23 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/il-gioco': typeof IlGiocoRoute
   '/personaggi': typeof PersonaggiRoute
+  '/regolamento': typeof RegolamentoRoute
   '/scatola': typeof ScatolaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/il-gioco' | '/personaggi' | '/scatola'
+  fullPaths: '/' | '/il-gioco' | '/personaggi' | '/regolamento' | '/scatola'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/il-gioco' | '/personaggi' | '/scatola'
-  id: '__root__' | '/' | '/il-gioco' | '/personaggi' | '/scatola'
+  to: '/' | '/il-gioco' | '/personaggi' | '/regolamento' | '/scatola'
+  id:
+    '__root__' | '/' | '/il-gioco' | '/personaggi' | '/regolamento' | '/scatola'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   IlGiocoRoute: typeof IlGiocoRoute
   PersonaggiRoute: typeof PersonaggiRoute
+  RegolamentoRoute: typeof RegolamentoRoute
   ScatolaRoute: typeof ScatolaRoute
 }
 
@@ -92,6 +103,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PersonaggiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/regolamento': {
+      id: '/regolamento'
+      path: '/regolamento'
+      fullPath: '/regolamento'
+      preLoaderRoute: typeof RegolamentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/scatola': {
       id: '/scatola'
       path: '/scatola'
@@ -106,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   IlGiocoRoute: IlGiocoRoute,
   PersonaggiRoute: PersonaggiRoute,
+  RegolamentoRoute: RegolamentoRoute,
   ScatolaRoute: ScatolaRoute,
 }
 export const routeTree = rootRouteImport
