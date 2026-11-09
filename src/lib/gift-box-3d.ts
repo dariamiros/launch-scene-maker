@@ -120,7 +120,8 @@ export function mountGiftBox(
     vel.push(0.25 + Math.random() * 0.5);
   }
   const sg = new THREE.BufferGeometry();
-  sg.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  const posAttr = new THREE.BufferAttribute(pos, 3);
+  sg.setAttribute("position", posAttr);
   const sc = document.createElement("canvas");
   sc.width = sc.height = 64;
   const sx = sc.getContext("2d")!;
@@ -198,13 +199,13 @@ export function mountGiftBox(
     const z = Math.max(camZ, fit > camZ && asp < 1.1 ? fit : camZ);
     camera.position.z += (z - camera.position.z) * 0.12;
     group.position.y = Math.sin((t - t0) / 1100) * 6;
-    const p = sg.attributes.position.array as Float32Array;
     for (let i = 0; i < N; i++) {
-      p[i * 3 + 1] -= vel[i];
-      p[i * 3] += Math.sin((t - t0) / 900 + i) * 0.15;
-      if (p[i * 3 + 1] < -520) p[i * 3 + 1] = 520;
+      let y = (pos[i * 3 + 1] ?? 0) - (vel[i] ?? 0.4);
+      if (y < -520) y = 520;
+      pos[i * 3 + 1] = y;
+      pos[i * 3] = (pos[i * 3] ?? 0) + Math.sin((t - t0) / 900 + i) * 0.15;
     }
-    sg.attributes.position.needsUpdate = true;
+    posAttr.needsUpdate = true;
     camera.lookAt(0, 0, 0);
     renderer.render(scene, camera);
     if (loaded && !readySent) {
