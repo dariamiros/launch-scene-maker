@@ -1,12 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { PageShell, SectionLabel } from "@/components/site-chrome";
-import babbo from "@/assets/game/babbo.jpg.asset.json";
-import jing from "@/assets/game/jing.jpg.asset.json";
-import cometa from "@/assets/game/cometa.jpg.asset.json";
-import cappellostorto from "@/assets/game/cappellostorto.jpg.asset.json";
-import gelone from "@/assets/game/gelone.jpg.asset.json";
-import codarossa from "@/assets/game/codarossa.jpg.asset.json";
+import babbo from "@/assets/characters/babbo.jpg.asset.json";
+import jing from "@/assets/characters/jing.jpg.asset.json";
+import cometa from "@/assets/characters/cometa.jpg.asset.json";
+import cappellostorto from "@/assets/characters/cappellostorto.jpg.asset.json";
+import gelone from "@/assets/characters/gelone.jpg.asset.json";
+import codarossa from "@/assets/characters/codarossa.jpg.asset.json";
 
 const TITLE = "Personaggi — Prima dell’Alba";
 const DESCRIPTION =
@@ -42,20 +42,18 @@ const FURFANTI: Hero[] = [
 
 function Portrait({ h, rogue }: { h: Hero; rogue?: boolean }) {
   return (
-    <figure className="flex flex-col items-center text-center">
-      <div
-        className={`w-full max-w-[220px] overflow-hidden rounded-[50%] border-[3px] ${rogue ? "border-rogue" : "border-primary"}`}
-      >
+    <figure className="flex flex-col">
+      <div className={`overflow-hidden border-2 ${rogue ? "border-rogue" : "border-primary"}`}>
         <img
           src={h.img}
-          alt={h.name}
-          width={206}
-          height={282}
+          alt={`${h.name} nel villaggio innevato`}
+          width={1376}
+          height={768}
           loading="lazy"
-          className="aspect-[206/282] w-full scale-[1.06] object-cover"
+          className="aspect-[1376/768] w-full object-cover transition-transform duration-500 hover:scale-[1.04]"
         />
       </div>
-      <figcaption className="mt-5">
+      <figcaption className="mt-4">
         <span className="block font-display text-xl font-bold tracking-wide">{h.name}</span>
         <span
           className={`mt-1 block text-xs font-semibold uppercase tracking-[0.2em] ${rogue ? "text-rogue" : "text-primary"}`}
@@ -83,7 +81,7 @@ function Personaggi() {
 
       <section className="mx-auto max-w-6xl px-5 pt-16 md:px-8">
         <SectionLabel>I Buoni</SectionLabel>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3">
+        <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {BUONI.map((h) => (
             <Portrait key={h.name} h={h} />
           ))}
@@ -94,7 +92,7 @@ function Personaggi() {
         <div className="mb-6 border-b border-rogue/60 pb-3 text-xs font-semibold uppercase tracking-[0.3em] text-rogue">
           I Furfanti
         </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3">
+        <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {FURFANTI.map((h) => (
             <Portrait key={h.name} h={h} rogue />
           ))}
