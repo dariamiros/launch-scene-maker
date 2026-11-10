@@ -73,6 +73,7 @@ function Index() {
             </Link>
             <Link to="/il-gioco">Il Gioco</Link>
             <Link to="/personaggi">Personaggi</Link>
+            <Link to="/regolamento">Regole</Link>
             <Link to="/scatola">La Scatola</Link>
           </nav>
           <Link className="signup" to="/scatola">

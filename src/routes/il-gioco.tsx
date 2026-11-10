@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { PageShell, SectionLabel } from "@/components/site-chrome";
-import board from "@/assets/game/tabellone.jpg.asset.json";
+import board from "@/assets/game/tabellone_percorso.jpg.asset.json";
 
 const TITLE = "Il Gioco — Prima dell’Alba";
 const DESCRIPTION =
-  "Come si gioca a Prima dell’Alba: tira i dadi, supera le missioni e consegna i regali prima che sorga il sole. 6+ anni, 2–6 giocatori, 30 minuti.";
+  "Come si gioca a Prima dell’Alba: tira i dadi, supera le missioni e consegna i regali prima che sorga il sole. 6+ anni, 2–6 giocatori, 25–35 minuti.";
 
 export const Route = createFileRoute("/il-gioco")({
   head: () => ({
@@ -22,24 +22,28 @@ export const Route = createFileRoute("/il-gioco")({
 });
 
 const STEPS = [
-  "Tira il dado e muovi la tua pedina sul percorso.",
-  "Pesca una carta missione: indovinelli, mimi e sfide di squadra.",
-  "Consegna i regali o ruba quelli degli avversari: vince chi arriva prima dell’alba!",
+  "Tira il dado e muovi la tua pedina lungo il percorso di 50 caselle.",
+  "Fai l’azione della casella: consegna o ruba un regalo, supera una Missione, pesca una carta Magia o Tempesta.",
+  "Sfida a palle di neve chi incontri sulla tua casella e usa il potere del tuo personaggio.",
+  "Quando sorge il sole si contano i regali: sui tetti per i Buoni, nella Tana per i Furfanti.",
 ];
 
 const STATS = [
   { value: "6+", label: "Anni" },
   { value: "2–6", label: "Giocatori" },
-  { value: "30’", label: "Minuti" },
+  { value: "25–35’", label: "Minuti" },
 ];
 
 const CONTENTS = [
   "1 tabellone",
   "6 pedine personaggio",
-  "24 regali",
-  "40 carte missione",
+  "12 gettoni regalo",
+  "8 gettoni carbone",
+  "40 carte Missione",
+  "12 carte Magia",
+  "12 carte Tempesta",
   "2 dadi",
-  "1 segnalino alba",
+  "1 segnalino Alba",
 ];
 
 function IlGioco() {
@@ -55,13 +59,13 @@ function IlGioco() {
             È la notte di Natale e il sole sta per sorgere! Babbo Natale, l’elfo e la renna devono
             consegnare tutti i regali prima dell’alba, ma i Furfanti sono in agguato: l’elfo ladro,
             l’orso e la volpe faranno di tutto per rubarli. Tira i dadi, supera le missioni e gioca
-            in squadra: 1 contro 1, 2 contro 2 o 3 contro 3.
+            in squadra, da 1 contro 1 fino a 3 contro 3.
           </p>
           <img
             src={board.url}
-            alt="Il percorso del tabellone: una strada di caselle colorate nella neve tra abeti e una baita illuminata"
-            width={790}
-            height={474}
+            alt="Il tabellone: un percorso di caselle colorate con le stelle nella neve, tra abeti, lampioni e una baita illuminata, fino al traguardo"
+            width={1376}
+            height={768}
             className="w-full border border-primary/70"
           />
         </div>
@@ -112,8 +116,14 @@ function IlGioco() {
 
       <section className="mx-auto flex max-w-6xl flex-wrap gap-4 px-5 pb-24 md:px-8">
         <Link
-          to="/personaggi"
+          to="/regolamento"
           className="inline-flex h-12 items-center bg-primary px-7 text-sm font-semibold uppercase tracking-[0.06em] text-primary-foreground transition-colors hover:bg-primary-glow"
+        >
+          Leggi il regolamento completo
+        </Link>
+        <Link
+          to="/personaggi"
+          className="inline-flex h-12 items-center border-[1.5px] border-primary px-7 text-sm font-semibold uppercase tracking-[0.06em] text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
         >
           Conosci i personaggi
         </Link>

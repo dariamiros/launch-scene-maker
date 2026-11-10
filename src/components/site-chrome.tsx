@@ -7,6 +7,7 @@ export const NAV = [
   { to: "/", label: "Home" },
   { to: "/il-gioco", label: "Il Gioco" },
   { to: "/personaggi", label: "Personaggi" },
+  { to: "/regolamento", label: "Regole" },
   { to: "/scatola", label: "La Scatola" },
 ] as const;
 
@@ -27,7 +28,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav aria-label="Principale" className="hidden items-center gap-10 md:flex">
+        <nav aria-label="Principale" className="hidden items-center gap-6 md:flex lg:gap-10">
           {NAV.map((n) => (
             <Link
               key={n.to}
