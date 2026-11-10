@@ -104,7 +104,9 @@ function IlGioco() {
                 key={s.label}
                 className="flex h-28 w-24 flex-col items-center justify-center rounded-[50%] border-2 border-primary bg-background/60"
               >
-                <span className="font-display text-3xl font-bold">{s.value}</span>
+                <span className={`font-display font-bold ${s.value.length > 3 ? "text-xl" : "text-3xl"}`}>
+                  {s.value}
+                </span>
                 <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-primary">
                   {s.label}
                 </span>
