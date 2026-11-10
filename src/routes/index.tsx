@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 
 import { initPrimaHero } from "@/lib/prima-hero";
-import heroVideo from "@/assets/village_twilight_hero.mp4.asset.json";
+import heroVideo from "@/assets/snowy_winter_house_hero.mp4.asset.json";
 import emblem from "@/assets/deer_emblem_gold.png.asset.json";
 
 const TITLE = "Prima dell’Alba — Il gioco di squadra che corre contro il sole";
@@ -73,6 +73,7 @@ function Index() {
             </Link>
             <Link to="/il-gioco">Il Gioco</Link>
             <Link to="/personaggi">Personaggi</Link>
+            <Link to="/regolamento">Regole</Link>
             <Link to="/scatola">La Scatola</Link>
           </nav>
           <Link className="signup" to="/scatola">
